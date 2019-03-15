@@ -14,7 +14,7 @@
 <script>
 import Renderer from './lib/renderer';
 // import './interaction/index';
-override
+// override
 
 export default {
   props: {
