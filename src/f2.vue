@@ -13,39 +13,8 @@
 
 <script>
 import Renderer from './lib/renderer';
-import F2 from './lib/f2';
-import './interaction/index';
-// override
-F2.Util.measureText = function (text, font) {
-  ctx.font = font || '12px sans-serif';
-  return ctx.measureText(text);
-};
-
-F2.Util.addEventListener = function (source, type, listener) {
-  source.addListener(type, listener);
-};
-
-F2.Util.removeEventListener = function (source, type, listener) {
-  source.removeListener(type, listener);
-};
-
-F2.Util.createEvent = function (event, chart) {
-  const type = event.type;
-  let x = 0;
-  let y = 0;
-  const touches = event.touches;
-  if (touches && touches.length > 0) {
-    x = touches[0].x;
-    y = touches[0].y;
-  }
-
-  return {
-    type,
-    chart,
-    x,
-    y
-  };
-};
+// import './interaction/index';
+override
 
 export default {
   props: {
@@ -79,6 +48,11 @@ export default {
 
     if (!this.lazyLoad) this.init();
   },
+  watch: {
+    onInit(nv, ov) {
+      this.init();
+    }
+  },
   methods: {
     init() {
       const version = wx.version.version.split('.').map(n => parseInt(n, 10));
@@ -97,8 +71,8 @@ export default {
 
       const { canvasId } = this;
       this.ctx = wx.createCanvasContext(canvasId);
-
       const canvas = new Renderer(this.ctx);
+      // const canvas = new Renderer(this.ctx);
       this.canvas = canvas;
 
       const query = wx.createSelectorQuery();
