@@ -3,18 +3,19 @@
     v-if="canvasId"
     class="f2-canvas"
     :id="canvasId"
+    :class="{'notShow': !isShow}"
     :canvasId="canvasId"
     @touchstart="touchStart"
     @touchmove="touchMove"
     @touchend="touchEnd"
-    @error="error">
+    @error="error"
+    style='width:100%;height:100%'>
   </canvas>
 </template>
 
 <script>
 import Renderer from './lib/renderer';
-// import './interaction/index';
-// override
+import './interaction/index';
 
 export default {
   props: {
@@ -37,6 +38,10 @@ export default {
     lazyLoad: {
       type: Boolean,
       default: false,
+    },
+    isShow: {
+      type: Boolean,
+      default: true,
     }
   },
   onReady() {
@@ -125,5 +130,8 @@ export default {
 .f2-canvas {
   width: 100%;
   height: 100%;
+}
+.notShow {
+  display: none;
 }
 </style>
